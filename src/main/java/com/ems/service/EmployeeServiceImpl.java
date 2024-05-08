@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.ResourceAccessException;
+
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,8 +46,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public EmployeeDto updateEmployee(EmployeeDto employeeDto) {
-        Employees employees = findEmployeeName(employeeDto.getFirstName());
+    public EmployeeDto updateEmployee(Long id, EmployeeDto employeeDto) {
+        Employees employees = employeeRepository.findById(id).orElseThrow(
+                ()-> new InputMismatchException("Id not found"));
         employees.setFirstName(employeeDto.getFirstName());
         employees.setLastName(employeeDto.getLastName());
         employees.setEmail(employeeDto.getEmail());

@@ -13,7 +13,7 @@ public interface EmployeeService {
 
     public List<EmployeeDto> getAllEmployee();
 
-    public EmployeeDto updateEmployee(EmployeeDto employeeDto);
+    public EmployeeDto updateEmployee(Long id, EmployeeDto employeeDto);
 
     public Employees findEmployeeName(String firstName);
 
